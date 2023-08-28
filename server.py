@@ -29,12 +29,15 @@ def showSummary():
     if len(request.form['email']) == 0:
         message = "Email vide : Merci de rentrer une adresse email avant de valider"
     else:
+        # Charger la liste des clubs permet de passer le test
+        clubs = loadClubs()
         for club in clubs:
             if club['email'] == request.form['email']:
                 club_connected=club
                 return render_template('welcome.html',club=club_connected,competitions=competitions)
             else:
                 message = "Email inconnu : L'adresse email n'est pas connu de la base de données"
+
     return render_template('index.html', message=message)
 
 
