@@ -45,6 +45,9 @@ def showSummary():
 
 @app.route("/book/<competition>/<club>")
 def book(competition,club):
+    competitions = loadCompetitions()
+    clubs = loadClubs()
+    
     foundClub = [c for c in clubs if c["name"] == club][0]
     foundCompetition = [c for c in competitions if c["name"] == competition][0]
     if foundClub and foundCompetition:
@@ -59,10 +62,10 @@ def purchasePlaces():
     # Charger la liste des compétitions et clubs : permet de passer les tests
     competitions = loadCompetitions()
     clubs = loadClubs()
-    
-    competition = [c for c in competitions if c["name"] == request.form["competition"]][0]
-    club = [c for c in clubs if c["name"] == request.form["club"]][0]
 
+    club = [c for c in clubs if c["name"] == request.form["club"]][0]
+    competition = [c for c in competitions if c["name"] == request.form["competition"]][0]
+    
     try:
         placesRequired = int(request.form["places"])
         Reponse_valide = True
@@ -71,17 +74,14 @@ def purchasePlaces():
         # Si le nombre de place est supérieur au nombre de point du club
         if placesRequired > int(club["points"]):
             message = "Overtaking Club Place : Trop de place acheté par rapport au nombre du club"
-            print (int(club["points"]))
             Reponse_valide = False
         # Si le nombre de place est supérieur au nombre de place du festival
         elif placesRequired > int(competition["numberOfPlaces"]):
             message = "Overtaking Festival Place : Trop de place acheté par rapport au nombre du festival"
-            print (int(competition["numberOfPlaces"]))
             Reponse_valide = False
         # Si le nombre de place est supérieur à la limite du max autorisé
         elif placesRequired > ATHLETES_MAX_COMPETITION:
             message = "Too Many Athletes : Trop d'athletes inscrit"
-            print(ATHLETES_MAX_COMPETITION)
             Reponse_valide = False       
     except ValueError:
         # Si le nombre de place est vide
