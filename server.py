@@ -22,6 +22,12 @@ def loadCompetitions():
         return listOfCompetitions
 
 
+def loadHistoryReservation():
+    with open("historique_reservation.json")as histo:
+        listOfHistoryReservation = json.load(histo)["reservation"]
+        return listOfHistoryReservation
+
+
 def controleDate(competitions):
     for competition in competitions:
         format_date_valid = datetime.strptime(competition["date"], FORMAT_DATE)
@@ -131,9 +137,29 @@ def purchasePlaces():
         return render_template("booking.html", club=club, competition=competition, message=message)
 
 
+@app.route("/affichageReservation", methods=["GET"])
+def affichageReservation():
+    competitions = loadCompetitions()
+    clubs = loadClubs()
+    history_reservation = loadHistoryReservation()
+
+    data_global = {}
+    for competition in competitions:
+        data_global[competition["name"]] = {}
+        for club in clubs:
+            data_global[competition["name"]][club["name"]] = 0
+
+    for historique in history_reservation:
+        history_competition = historique["competition"]
+        history_club = historique["club"]
+        history_number = int(historique["numberOfReservation"])
+
+        data_global[history_competition][history_club] += history_number
+
+    return render_template("reservation.html", historique=data_global)
+
+
 # TODO: Add route for points display
-
-
 @app.route("/logout")
 def logout():
     return redirect(url_for("index"))

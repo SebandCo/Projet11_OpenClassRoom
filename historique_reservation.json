@@ -1,0 +1,16 @@
+{
+    "reservation": [
+        {
+            "competition": "Spring Festival",
+            "club":"Simply Lift",
+            "date": "2022-10-20 10:00:00",
+            "numberOfReservation": "0"
+        },
+        {
+            "competition": "Fall Classic",
+            "club":"Iron Temple",
+            "date": "2020-05-06 12:25:45",
+            "numberOfReservation": "0"
+        }
+    ]
+}

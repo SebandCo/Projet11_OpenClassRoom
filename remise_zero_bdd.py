@@ -17,3 +17,10 @@ def remise_zero_bdd():
             data = fichier.read()
         with open("competitions.json", "w") as fichier:
             fichier.write(data)
+
+    # Remise à zéro base de données historique de reservation
+    if os.path.exists("historique_reservation.json"):
+        with open("original_historique_reservation.json", "r") as fichier:
+            data = fichier.read()
+        with open("historique_reservation.json", "w") as fichier:
+            fichier.write(data)

@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique reservation || GUDLFT</title>
+</head>
+<body>
+    <h2>Here is a summary of reservations by festival</h2>
+    {% for competition, clubs in historique.items() %}
+        <table>
+            <caption> Festival : {{competition}}</caption>
+            <tr>
+                <th>Club Name</th>
+                <th>Reserved place</th>
+            </tr>
+            {% for club, reservation in clubs.items() %}
+                <tr>
+                    <td>{{club}}</td>
+                    <td>{{reservation}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </br>
+    {% endfor %}
+    <a onclick="history.back();">Retour</a>  
+</body>
+</html>
