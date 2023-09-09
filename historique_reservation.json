@@ -2,15 +2,21 @@
     "reservation": [
         {
             "competition": "Spring Festival",
-            "club":"Simply Lift",
+            "club": "Simply Lift",
             "date": "2022-10-20 10:00:00",
-            "numberOfReservation": "0"
+            "numberOfReservation": "5"
         },
         {
             "competition": "Fall Classic",
-            "club":"Iron Temple",
+            "club": "Iron Temple",
             "date": "2020-05-06 12:25:45",
-            "numberOfReservation": "0"
+            "numberOfReservation": "2"
+        },
+        {
+            "competition": "Happy New Year Festival",
+            "club": "Iron Temple",
+            "date": "2020-05-06 12:25:45",
+            "numberOfReservation": "10"
         }
     ]
 }

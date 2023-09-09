@@ -38,6 +38,27 @@ def controleDate(competitions):
     return
 
 
+def historiqueReservation():
+    competitions = loadCompetitions()
+    clubs = loadClubs()
+    history_reservation = loadHistoryReservation()
+
+    data_global = {}
+    for competition in competitions:
+        data_global[competition["name"]] = {}
+        for club in clubs:
+            data_global[competition["name"]][club["name"]] = 0
+
+    for historique in history_reservation:
+        history_competition = historique["competition"]
+        history_club = historique["club"]
+        history_number = int(historique["numberOfReservation"])
+
+        data_global[history_competition][history_club] += history_number
+
+    return data_global
+
+
 competitions = loadCompetitions()
 clubs = loadClubs()
 
@@ -85,6 +106,7 @@ def purchasePlaces():
     # Charger la liste des compétitions et clubs : permet de passer les tests
     competitions = loadCompetitions()
     clubs = loadClubs()
+    dataReservation = historiqueReservation()
 
     club = [c for c in clubs if c["name"] == request.form["club"]][0]
     competition = [c for c in competitions if c["name"] == request.form["competition"]][0]
@@ -101,9 +123,13 @@ def purchasePlaces():
         competition["valid"] = True
         try:
             placesRequired = int(request.form["places"])
+            placeTotalRequired = placesRequired + dataReservation[competition["name"]][club["name"]]
 
             # Controle de la réponse utilisateur
             # Si le nombre de place est supérieur au nombre de point du club
+            if placesRequired == 0:
+                message = "Zero Place : Vous n'avez acheté aucune place"
+                Reponse_valide = False
             if placesRequired > int(club["points"]):
                 message = "Overtaking Club Place : Trop de place acheté par rapport au nombre du club"
                 Reponse_valide = False
@@ -112,7 +138,7 @@ def purchasePlaces():
                 message = "Overtaking Festival Place : Trop de place acheté par rapport au nombre du festival"
                 Reponse_valide = False
             # Si le nombre de place est supérieur à la limite du max autorisé
-            elif placesRequired > ATHLETES_MAX_COMPETITION:
+            elif placeTotalRequired > ATHLETES_MAX_COMPETITION:
                 message = "Too Many Athletes : Trop d'athletes inscrit"
                 Reponse_valide = False
         except ValueError:
@@ -129,6 +155,16 @@ def purchasePlaces():
         with open("clubs.json", "w") as club_json:
             club["points"] = str(int(club["points"])-placesRequired)
             json.dump({"clubs": clubs}, club_json, sort_keys=False, indent=4)
+        # Modification du fichier historique json
+        with open("historique_reservation.json", "r") as historique_json:
+            data = json.load(historique_json)
+            new_data = {"competition": competition["name"],
+                        "club": club["name"],
+                        "date": "2022-10-20 10:00:00",
+                        "numberOfReservation": request.form["places"]}
+            data['reservation'].append(new_data)
+        with open("historique_reservation.json", "w") as historique_json:
+            json.dump(data, historique_json, sort_keys=False, indent=4)
 
         flash("Great-booking complete!")
         return render_template("welcome.html", club=club, competitions=competitions)
@@ -139,22 +175,7 @@ def purchasePlaces():
 
 @app.route("/affichageReservation", methods=["GET"])
 def affichageReservation():
-    competitions = loadCompetitions()
-    clubs = loadClubs()
-    history_reservation = loadHistoryReservation()
-
-    data_global = {}
-    for competition in competitions:
-        data_global[competition["name"]] = {}
-        for club in clubs:
-            data_global[competition["name"]][club["name"]] = 0
-
-    for historique in history_reservation:
-        history_competition = historique["competition"]
-        history_club = historique["club"]
-        history_number = int(historique["numberOfReservation"])
-
-        data_global[history_competition][history_club] += history_number
+    data_global = historiqueReservation()
 
     return render_template("reservation.html", historique=data_global)
 
