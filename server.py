@@ -166,7 +166,7 @@ def purchasePlaces():
         with open("historique_reservation.json", "w") as historique_json:
             json.dump(data, historique_json, sort_keys=False, indent=4)
 
-        flash("Great-booking complete!")
+        flash(f"Great-booking complete! : You have reserved {placesRequired} places")
         return render_template("welcome.html", club=club, competitions=competitions)
     else:
         # Si il y a une erreur, on reste sur la page booking.html
