@@ -1,0 +1,3 @@
+[run]
+omit = */remise_zero_bdd.py
+        */tests/*
