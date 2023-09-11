@@ -53,6 +53,11 @@ def competition_fixture():
         "name": "competition_invalid_test",
         "date": "1901-01-01 12:00:00",
         "numberOfPlaces": "200"
+        },
+        {
+        "name": "competition_valid_test2",
+        "date": "2025-01-01 12:00:00",
+        "numberOfPlaces": "100"
     }]
     return competition
 
@@ -64,5 +69,18 @@ def historique_fixture():
         "club": "club_test",
         "date": "2022-01-01 12:00:00",
         "numberOfReservation": "5"
-        }]
+        },
+        {
+        "competition": "competition_valid_test2",
+        "club": "club_test",
+        "date": "2022-01-01 12:00:00",
+        "numberOfReservation": "10"
+        },
+        {
+        "competition": "competition_valid_test2",
+        "club": "club_test",
+        "date": "2022-01-01 12:00:00",
+        "numberOfReservation": "15"
+        }
+        ]
     return historique

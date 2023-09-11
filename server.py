@@ -176,7 +176,6 @@ def purchasePlaces():
 @app.route("/affichageReservation", methods=["GET"])
 def affichageReservation():
     data_global = historiqueReservation()
-
     return render_template("reservation.html", historique=data_global)
 
 
