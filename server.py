@@ -158,7 +158,7 @@ def purchasePlaces():
             data = json.load(historique_json)
             new_data = {"competition": competition["name"],
                         "club": club["name"],
-                        "date": "2022-10-20 10:00:00",
+                        "date": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                         "numberOfReservation": request.form["places"]}
             data['reservation'].append(new_data)
         with open("historique_reservation.json", "w") as historique_json:
