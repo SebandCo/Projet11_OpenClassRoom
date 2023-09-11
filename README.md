@@ -41,11 +41,23 @@
      
     * competitions.json - list of competitions
     * clubs.json - list of clubs with relevant information. You can look here to see what email addresses the app will accept for login.
+    * historique_reservation.json - list of reservation history
 
 5. Testing
 
-    You are free to use whatever testing framework you like-the main thing is that you can show what tests you are using.
+   The various tests were written with pytest.
+   To launch them:
+   ```python -m pytest -s```
+   
+   To see code coverage:
+   
+   ```coverage run -m pytest```
+   
+   them
+   
+   ```coverage html```
 
-    We also like to show how well we're testing, so there's a module called 
-    [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) you should add to your project.
+6. Development Environment
 
+   Being on a development environment, the database is reset to zero each time the server is launched.
+To avoid it, remove the "remise_zero_bdd()" function on line 190 in server.py
