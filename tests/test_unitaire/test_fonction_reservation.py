@@ -57,7 +57,7 @@ def test_purchasePlaces_valid(mocker, client, club_fixture, competition_fixture,
     assert expected_value_point_competition in response.data
 
 
-def test_purchasePlaces_zero_place(mocker, client, club_fixture, competition_fixture, historique_fixture):
+def test_purchasePlaces_zero_place(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
 
     data_place_reservee = 0
     points_club_start = club_fixture[0]["points"]
@@ -79,7 +79,7 @@ def test_purchasePlaces_zero_place(mocker, client, club_fixture, competition_fix
     assert b"Zero Place" in response.data
 
 
-def test_purchasePlaces_invalid_overtaking_club_place(mocker, client, club_fixture, competition_fixture, historique_fixture):
+def test_purchasePlaces_invalid_overtaking_club_place(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
 
     points_club_start = club_fixture[0]["points"]
     place_competition_start = competition_fixture[0]["numberOfPlaces"]
@@ -101,7 +101,7 @@ def test_purchasePlaces_invalid_overtaking_club_place(mocker, client, club_fixtu
     assert b"Overtaking Club Place" in response.data
 
 
-def test_purchasePlaces_invalid_overtaking_festival_place(mocker, client, club_fixture, competition_fixture, historique_fixture):
+def test_purchasePlaces_invalid_overtaking_festival_place(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
 
     competition_fixture[0]["numberOfPlaces"] = "0"
 
@@ -125,7 +125,7 @@ def test_purchasePlaces_invalid_overtaking_festival_place(mocker, client, club_f
     assert b"Overtaking Festival Place" in response.data
 
 
-def test_purchasePlaces_invalid_too_many_athletes(mocker, client, club_fixture, competition_fixture, historique_fixture):
+def test_purchasePlaces_invalid_too_many_athletes(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
 
     club_fixture[0]["points"] = "50"
 
@@ -149,7 +149,7 @@ def test_purchasePlaces_invalid_too_many_athletes(mocker, client, club_fixture, 
     assert b"Too Many Athletes" in response.data
 
 
-def test_purchasePlaces_invalid_no_tickets_purchased(mocker, client, club_fixture, competition_fixture, historique_fixture):
+def test_purchasePlaces_invalid_no_tickets_purchased(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
 
     points_club_start = club_fixture[0]["points"]
     place_competition_start = competition_fixture[0]["numberOfPlaces"]
@@ -171,7 +171,7 @@ def test_purchasePlaces_invalid_no_tickets_purchased(mocker, client, club_fixtur
     assert b"No Tickets Purchased" in response.data
 
 
-def test_purchasePlaces_invalid_festival_over(mocker, client, club_fixture, competition_fixture, historique_fixture):
+def test_purchasePlaces_invalid_festival_over(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
 
     competition_fixture[0]["date"] = "1901-01-01 12:00:00"
 

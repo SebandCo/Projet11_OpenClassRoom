@@ -1,4 +1,4 @@
-def test_showSummary_with_valid_email(mocker, client, club_fixture):
+def test_showSummary_with_valid_email(mocker, client, club_fixture, backup_json):
 
     # Permet au mock de renvoyer la liste de clubs fictifs venant de fixture
     mocker.patch("server.loadClubs", return_value=club_fixture)

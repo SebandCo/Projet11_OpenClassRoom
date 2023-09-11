@@ -36,7 +36,7 @@ def test_affichage_booking_page_competition_valid(mocker, client, club_fixture, 
                            expected_value_booking)
 
 
-def test_affichage_booking_page_competition_invalid(mocker, client, club_fixture, competition_fixture):
+def test_affichage_booking_page_competition_invalid(mocker, client, club_fixture, competition_fixture, backup_json):
     data_club = club_fixture[0]
     data_competition = competition_fixture[1]
 
@@ -51,7 +51,7 @@ def test_affichage_booking_page_competition_invalid(mocker, client, club_fixture
                            expected_value_booking)
 
 
-def test_affichage_booking_erreur_club_navigation(mocker, client, club_fixture, competition_fixture):
+def test_affichage_booking_erreur_club_navigation(mocker, client, club_fixture, competition_fixture, backup_json):
 
     mocker.patch("server.loadClubs", return_value=club_fixture)
     mocker.patch("server.loadCompetitions", return_value=competition_fixture)
@@ -67,7 +67,7 @@ def test_affichage_booking_erreur_club_navigation(mocker, client, club_fixture, 
     assert expected_value_booking in donnee_decryptee
 
 
-def test_affichage_booking_erreur_competition_navigation(mocker, client, club_fixture, competition_fixture):
+def test_affichage_booking_erreur_competition_navigation(mocker, client, club_fixture, competition_fixture, backup_json):
 
     mocker.patch("server.loadClubs", return_value=club_fixture)
     mocker.patch("server.loadCompetitions", return_value=competition_fixture)

@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 
 
-def test_showSummary_send_valid_email(mocker, client, club_fixture):
+def test_showSummary_send_valid_email(mocker, client, club_fixture, competition_fixture, backup_json):
 
     # Permet au mock de renvoyer la liste de clubs fictifs venant de fixture
     mocker.patch("server.loadClubs", return_value=club_fixture)
+    mocker.patch("server.loadCompetitions", return_value=competition_fixture)
     response = client.post('/showSummary', data={'email': club_fixture[0]["email"]})
 
     soup = BeautifulSoup(response.data, "html.parser")

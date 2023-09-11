@@ -26,6 +26,8 @@
             {%if comp['valid'] %}
                 {%if comp['numberOfPlaces']|int >0%}
                     <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
+                {%else%}
+                    No Place : La compétition n'a plus de place de disponible
                 {%endif%}
             {%else%}
                 La compétition est terminée
