@@ -91,12 +91,12 @@ def book(competition, club):
     competitions = loadCompetitions()
     clubs = loadClubs()
 
-    foundClub = [c for c in clubs if c["name"] == club][0]
-    foundCompetition = [c for c in competitions if c["name"] == competition][0]
-    controleDate(competitions)
-    if foundClub and foundCompetition:
+    try:
+        foundClub = [c for c in clubs if c["name"] == club][0]
+        foundCompetition = [c for c in competitions if c["name"] == competition][0]
+        controleDate(competitions)
         return render_template("booking.html", club=foundClub, competition=foundCompetition)
-    else:
+    except IndexError:
         flash("Something went wrong-please try again")
         return render_template("welcome.html", club=club, competitions=competitions)
 
