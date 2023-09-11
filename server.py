@@ -59,10 +59,6 @@ def historiqueReservation():
     return data_global
 
 
-competitions = loadCompetitions()
-clubs = loadClubs()
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -70,6 +66,8 @@ def index():
 
 @app.route("/showSummary", methods=["POST"])
 def showSummary():
+    competitions = loadCompetitions()
+    clubs = loadClubs()
     if len(request.form["email"]) == 0:
         message = "No Email : Merci de rentrer une adresse email avant de valider"
     else:
