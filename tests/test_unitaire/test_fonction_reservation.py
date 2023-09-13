@@ -79,6 +79,28 @@ def test_purchasePlaces_zero_place(mocker, client, club_fixture, competition_fix
     assert b"Zero Place" in response.data
 
 
+def test_purchasePlaces_negative_place(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
+
+    data_place_reservee = -1
+    points_club_start = club_fixture[0]["points"]
+    place_competition_start = competition_fixture[0]["numberOfPlaces"]
+
+    expected_value_point_club = points_club_start.encode()
+    expected_value_point_competition = place_competition_start.encode()
+
+    response = lancement_purchasePlaces(mocker,
+                                        client,
+                                        club_fixture,
+                                        competition_fixture,
+                                        historique_fixture,
+                                        data_place_reservee,
+                                        expected_value_point_club,
+                                        expected_value_point_competition)
+
+    # Vérifie que la réponse est correcte
+    assert b"Negative Place" in response.data
+
+
 def test_purchasePlaces_invalid_overtaking_club_place(mocker, client, club_fixture, competition_fixture, historique_fixture, backup_json):
 
     points_club_start = club_fixture[0]["points"]

@@ -128,6 +128,10 @@ def purchasePlaces():
             if placesRequired == 0:
                 message = "Zero Place : Vous n'avez acheté aucune place"
                 Reponse_valide = False
+            elif placesRequired < 0:
+                message = "Negative Place : Merci de rentrer un nombre positif"
+                Reponse_valide = False
+
             if placesRequired > int(club["points"]):
                 message = "Overtaking Club Place : Trop de place acheté par rapport au nombre du club"
                 Reponse_valide = False
